@@ -30,7 +30,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "yarn lint",
+      "eslint --ext .ts,.tsx --ignore-path .gitignore",
       "yarn format",
       "yarn lint:fix"
     ]
