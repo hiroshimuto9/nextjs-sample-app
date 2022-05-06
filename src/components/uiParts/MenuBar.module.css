@@ -1,0 +1,39 @@
+.menu {
+  position: fixed;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  overflow: auto;
+  border-right: solid #EEEEEE;
+}
+
+.headerContent {
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 10px;
+}
+
+.navigations ul {
+  padding: 0;
+}
+
+.navigations ul li {
+  margin: 0 10px;
+  list-style: none;
+}
+
+.navigations ul li a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  line-height: 65px;
+  color: #CCCCCC;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.navigations ul li:hover a {
+  background-color: #87cefa;
+  color: #4169e1;
+}
