@@ -1,7 +1,4 @@
 .menu {
-  position: fixed;
-  left: 0;
-  width: 240px;
   height: 100%;
   overflow: auto;
   border-right: solid #EEEEEE;
