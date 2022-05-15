@@ -8,9 +8,11 @@ interface Props {
 
 export const Layout = ({ children }: Props) => {
   return (
-    <React.Fragment>
-      <MenuBar />
+    <div className={style.container}>
+      <div className={style.side}>
+        <MenuBar />
+      </div>
       <div className={style.main}>{children}</div>
-    </React.Fragment>
+    </div>
   );
 };

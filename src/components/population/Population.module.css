@@ -1,0 +1,55 @@
+
+.searchArea {
+  display: flex;
+  width: 100%;
+}
+
+.searchInputWrap {
+  width: 80%;
+  margin-right: auto;
+}
+
+.searchInput {
+  width: 100%;
+  height: 4.8rem;
+  border: 1px solid #eaeaea;
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.searchBtnWrap {
+  width: 15%;
+}
+
+.searchBtn {
+  width: 100%;
+  height: 4.8rem;
+  border: 1px solid #eaeaea;
+  border-radius: 18px;
+}
+
+.mainCategoryContentsArea {
+  margin: 2.4rem 0;
+}
+
+.mainCategoryTitle {
+  font-size: 2rem;
+}
+
+.subCategoryContentsArea {
+  display: flex;
+}
+
+.subCategoryContentWrap {
+  width: 50%;
+  height: 50rem;
+}
+
+.subCategoryTitle {
+  font-size: 1.6rem;
+}
+
+.subCategoryContent {
+  width: 100%;
+  height: 100%;
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "@/components/uiParts/MenuBar.module.css";
 
 export const MenuBar = () => {
@@ -9,7 +10,9 @@ export const MenuBar = () => {
       <nav className={styles.navigations}>
         <ul>
           <li>
-            <a href="#">メニューA</a>
+            <Link href="/population">
+              <a>人口マップ</a>
+            </Link>
           </li>
           <li>
             <a href="#">メニューB</a>
