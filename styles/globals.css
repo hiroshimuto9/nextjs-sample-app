@@ -15,3 +15,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+li {
+  list-style: none;
+}
+
+label, input[type='checkbox'] {
+  cursor: pointer;
+}
