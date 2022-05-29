@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import style from "./Population.module.css";
 import { Layout } from "@/components/layouts/Layout";
+import PopulationSearchModal from "@/components/population/PopulationSearchModal";
 
 const PopulationPage: NextPage = () => {
   return (
@@ -41,6 +42,8 @@ const PopulationPage: NextPage = () => {
             </div>
           </div>
         </div>
+        {/* TODO マークアップ段階は固定値とし、別途開閉処理を実装 */}
+        <PopulationSearchModal isOpen={true} />
       </Layout>
     </div>
   );
