@@ -1,9 +1,19 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import style from "./Population.module.css";
 import { Layout } from "@/components/layouts/Layout";
 import PopulationSearchModal from "@/components/population/PopulationSearchModal";
 
 const PopulationPage: NextPage = () => {
+  const [modalStatus, setModalStatus] = useState(false);
+  const openModal = () => {
+    setModalStatus(true);
+  };
+
+  const closeModal = () => {
+    setModalStatus(false);
+  };
+
   return (
     <div>
       <Layout>
@@ -14,6 +24,7 @@ const PopulationPage: NextPage = () => {
               type="search"
               name="search"
               placeholder="検索"
+              onClick={openModal}
             />
           </div>
           <div className={style.searchBtnWrap}>
@@ -42,8 +53,7 @@ const PopulationPage: NextPage = () => {
             </div>
           </div>
         </div>
-        {/* TODO マークアップ段階は固定値とし、別途開閉処理を実装 */}
-        <PopulationSearchModal isOpen={true} />
+        <PopulationSearchModal isOpen={modalStatus} closeModal={closeModal} />
       </Layout>
     </div>
   );
