@@ -3,15 +3,21 @@ import style from "./PopulationSearchModal.module.css";
 
 type Props = {
   isOpen: boolean;
+  closeModal: () => void;
 };
 
-const PopulationSearchModal: NextPage<Props> = ({ isOpen }) => {
+const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
   return (
     <>
       {isOpen && (
         <div className={style.overlay}>
           <div className={style.modalContainer}>
-            <h2 className={style.modalTitle}>検索条件</h2>
+            <div className={style.modalHeader}>
+              <h2 className={style.modalTitle}>検索条件</h2>
+              <button className={style.closeButton} onClick={closeModal}>
+                X
+              </button>
+            </div>
             <div className={style.modalContent}>
               <ul className={style.searchItemList}>
                 <li className={style.searchItem}>

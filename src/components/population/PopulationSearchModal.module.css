@@ -17,11 +17,22 @@
   border-radius: 6px;
 }
 
-.modalTitle {
+.modalHeader {
   border-bottom: 1px solid #dedede;
-  font-size: 2rem;
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.5rem;
+}
+
+.modalTitle {
+  display: inline-block;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.closeButton {
+  float: right;
+  width: 20px;
+  height: 20px;
 }
 
 .modalContent {

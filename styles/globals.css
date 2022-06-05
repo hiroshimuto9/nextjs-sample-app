@@ -23,3 +23,12 @@ li {
 label, input[type='checkbox'] {
   cursor: pointer;
 }
+
+button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
