@@ -20,6 +20,9 @@ type Prefecture = {
 
 const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
+  const [checkedPrefCodes, setPrefCodes] = useState<Prefecture["prefCode"][]>(
+    []
+  );
   useEffect(() => {
     const fetchPrefectures = async () => {
       // TODO error handling
@@ -29,6 +32,23 @@ const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
     };
     fetchPrefectures();
   }, []);
+
+  /**
+   * チェックされた都道府県コードを配列に保存する
+   * @param e チェックされた都道府県コード
+   */
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const prefCode = Number(e.target.value);
+    if (checkedPrefCodes.includes(prefCode)) {
+      setPrefCodes(
+        checkedPrefCodes.filter(
+          (checkedPrefCode) => checkedPrefCode !== prefCode
+        )
+      );
+    } else {
+      setPrefCodes([...checkedPrefCodes, prefCode]);
+    }
+  };
   return (
     <>
       {isOpen && (
@@ -45,7 +65,12 @@ const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
                 {prefectures.map((prefecture) => (
                   <li className={style.searchItem} key={prefecture.prefCode}>
                     <label htmlFor={String(prefecture.prefCode)}>
-                      <input id={String(prefecture.prefCode)} type="checkbox" />
+                      <input
+                        id={String(prefecture.prefCode)}
+                        type="checkbox"
+                        value={prefecture.prefCode}
+                        onChange={handleChange}
+                      />
                       {prefecture.prefName}
                     </label>
                   </li>
