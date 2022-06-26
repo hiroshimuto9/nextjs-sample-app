@@ -5,6 +5,7 @@ import style from "./PopulationSearchModal.module.css";
 type Props = {
   isOpen: boolean;
   closeModal: () => void;
+  handleSearch: (checkedPrefCodes: Prefecture["prefCode"][]) => void;
 };
 
 // TODO api/prefectures/index.tsにも同じ型定義があるためリファクタ
@@ -18,34 +19,14 @@ type Prefecture = {
   prefName: string;
 };
 
-// TODO api/population/composition/perYear.tsにも同じ型定義があるためリファクタ
-type CompositionResponse = {
-  message: null;
-  result: CompositionResult;
-};
-
-type CompositionResult = {
-  boundaryYear: number;
-  data: CompositionData[];
-};
-
-type CompositionData = {
-  label: string;
-  data: Composition[];
-};
-
-type Composition = {
-  year: number;
-  value: number;
-};
-
-const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
+const PopulationSearchModal: NextPage<Props> = ({
+  isOpen,
+  closeModal,
+  handleSearch,
+}) => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
   const [checkedPrefCodes, setPrefCodes] = useState<Prefecture["prefCode"][]>(
     []
-  );
-  const [composition, setComposition] = useState<CompositionResult | null>(
-    null
   );
   useEffect(() => {
     const fetchPrefectures = async () => {
@@ -76,14 +57,7 @@ const PopulationSearchModal: NextPage<Props> = ({ isOpen, closeModal }) => {
 
   /** 検索処理を実行 */
   const onSearch = async () => {
-    const [prefCode, ...addAreaPrefCodes] = [...checkedPrefCodes];
-    const formattedAddArea = `${addAreaPrefCodes.join("_,")}_`;
-
-    const response = await fetch(
-      `/api/population/composition/perYear?cityCode=-&prefCode=${prefCode}&addArea=${formattedAddArea}`
-    );
-    const composition: CompositionResponse = await response.json();
-    setComposition(composition.result);
+    handleSearch(checkedPrefCodes);
   };
 
   return (

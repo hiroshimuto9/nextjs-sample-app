@@ -4,14 +4,57 @@ import style from "./Population.module.css";
 import { Layout } from "@/components/layouts/Layout";
 import PopulationSearchModal from "@/components/population/PopulationSearchModal";
 
+// TODO api/prefectures/index.tsにも同じ型定義があるためリファクタ
+type Prefecture = {
+  prefCode: number;
+  prefName: string;
+};
+
+// TODO api/population/composition/perYear.tsにも同じ型定義があるためリファクタ
+type CompositionResponse = {
+  message: null;
+  result: CompositionResult;
+};
+
+type CompositionResult = {
+  boundaryYear: number;
+  data: CompositionData[];
+};
+
+type CompositionData = {
+  label: string;
+  data: Composition[];
+};
+
+type Composition = {
+  year: number;
+  value: number;
+};
+
 const PopulationPage: NextPage = () => {
   const [modalStatus, setModalStatus] = useState(false);
+  const [composition, setComposition] = useState<CompositionResult | null>(
+    null
+  );
+
   const openModal = () => {
     setModalStatus(true);
   };
 
   const closeModal = () => {
     setModalStatus(false);
+  };
+
+  /** 検索処理を実行 */
+  const handleSearch = async (checkedPrefCodes: Prefecture["prefCode"][]) => {
+    const [prefCode, ...addAreaPrefCodes] = [...checkedPrefCodes];
+    const formattedAddArea = `${addAreaPrefCodes.join("_,")}_`;
+
+    const response = await fetch(
+      `/api/population/composition/perYear?cityCode=-&prefCode=${prefCode}&addArea=${formattedAddArea}`
+    );
+    const composition: CompositionResponse = await response.json();
+    setComposition(composition.result);
   };
 
   return (
@@ -53,7 +96,11 @@ const PopulationPage: NextPage = () => {
             </div>
           </div>
         </div>
-        <PopulationSearchModal isOpen={modalStatus} closeModal={closeModal} />
+        <PopulationSearchModal
+          isOpen={modalStatus}
+          closeModal={closeModal}
+          handleSearch={handleSearch}
+        />
       </Layout>
     </div>
   );
