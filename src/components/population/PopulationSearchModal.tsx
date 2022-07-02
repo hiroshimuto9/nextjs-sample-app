@@ -5,7 +5,7 @@ import style from "./PopulationSearchModal.module.css";
 type Props = {
   isOpen: boolean;
   closeModal: () => void;
-  handleSearch: (checkedPrefCodes: Prefecture["prefCode"][]) => void;
+  handleSearch: (checkedPrefCodes: Prefecture[]) => void;
 };
 
 // TODO api/prefectures/index.tsにも同じ型定義があるためリファクタ
@@ -25,7 +25,7 @@ const PopulationSearchModal: NextPage<Props> = ({
   handleSearch,
 }) => {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
-  const [checkedPrefCodes, setPrefCodes] = useState<Prefecture["prefCode"][]>(
+  const [checkedPrefectureList, setCheckedPrefecture] = useState<Prefecture[]>(
     []
   );
   useEffect(() => {
@@ -39,25 +39,25 @@ const PopulationSearchModal: NextPage<Props> = ({
   }, []);
 
   /**
-   * チェックされた都道府県コードを配列に保存する
-   * @param e チェックされた都道府県コード
+   * チェックされた都道府県データを配列に保存する
+   * @param prefecture チェックされた都道府県データ
    */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const prefCode = Number(e.target.value);
-    if (checkedPrefCodes.includes(prefCode)) {
-      setPrefCodes(
-        checkedPrefCodes.filter(
-          (checkedPrefCode) => checkedPrefCode !== prefCode
+  const handleChange = (prefecture: Prefecture) => {
+    if (checkedPrefectureList.includes(prefecture)) {
+      setCheckedPrefecture(
+        checkedPrefectureList.filter(
+          (checkedPrefecture) =>
+            checkedPrefecture.prefCode !== prefecture.prefCode
         )
       );
     } else {
-      setPrefCodes([...checkedPrefCodes, prefCode]);
+      setCheckedPrefecture([...checkedPrefectureList, prefecture]);
     }
   };
 
   /** 検索処理を実行 */
   const onSearch = async () => {
-    handleSearch(checkedPrefCodes);
+    handleSearch(checkedPrefectureList);
   };
 
   return (
@@ -79,8 +79,7 @@ const PopulationSearchModal: NextPage<Props> = ({
                       <input
                         id={String(prefecture.prefCode)}
                         type="checkbox"
-                        value={prefecture.prefCode}
-                        onChange={handleChange}
+                        onChange={() => handleChange(prefecture)}
                       />
                       {prefecture.prefName}
                     </label>
