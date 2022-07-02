@@ -29,9 +29,8 @@ export default async function handler(
   // TODO error handling
   const cityCode = req.query.cityCode;
   const prefCode = req.query.prefCode;
-  const addArea = req.query.addArea;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_RESAS_ENDPOINT}${process.env.NEXT_PUBLIC_RESAS_API_V1}/population/composition/perYear?cityCode=${cityCode}&prefCode=${prefCode}&addArea=${addArea}`,
+    `${process.env.NEXT_PUBLIC_RESAS_ENDPOINT}${process.env.NEXT_PUBLIC_RESAS_API_V1}/population/composition/perYear?cityCode=${cityCode}&prefCode=${prefCode}`,
     {
       method: "GET",
       headers: {
