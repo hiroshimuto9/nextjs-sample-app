@@ -227,16 +227,8 @@ const PopulationPage: NextPage = () => {
               className={style.searchInput}
               type="search"
               name="search"
-              placeholder="検索"
+              placeholder="都道府県を選択"
               onClick={openModal}
-            />
-          </div>
-          <div className={style.searchBtnWrap}>
-            <input
-              className={style.searchBtn}
-              type="submit"
-              name="submit"
-              value="検索"
             />
           </div>
         </div>
