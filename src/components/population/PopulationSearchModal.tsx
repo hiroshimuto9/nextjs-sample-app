@@ -55,9 +55,19 @@ const PopulationSearchModal: NextPage<Props> = ({
     }
   };
 
-  /** 検索処理を実行 */
+  /**
+   * 都道府県が選択済みかどうかを判定
+   * @param prefecture 都道府県データ
+   * @returns チェック済みの場合 true、未チェックの場合 falseを返却
+   */
+  const isChecked = (prefecture: Prefecture): boolean => {
+    return checkedPrefectureList.includes(prefecture);
+  };
+
+  /** 検索処理を実行しモーダルを閉じる */
   const onSearch = async () => {
     handleSearch(checkedPrefectureList);
+    closeModal();
   };
 
   return (
@@ -79,6 +89,7 @@ const PopulationSearchModal: NextPage<Props> = ({
                       <input
                         id={String(prefecture.prefCode)}
                         type="checkbox"
+                        checked={isChecked(prefecture)}
                         onChange={() => handleChange(prefecture)}
                       />
                       {prefecture.prefName}
