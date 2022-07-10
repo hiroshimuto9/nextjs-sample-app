@@ -109,11 +109,16 @@ const PopulationPage: NextPage = () => {
       }
     }
     setTotalPopulation(allTotalPopulationList);
+    console.log("totalPopulationList", totalPopulationList);
     setYoungPopulation(allYoungPopulationList);
     setWorkingAgePopulation(allWorkingAgePopulationList);
     setAgedPopulation(allAgedPopulationList);
   };
 
+  /**
+   * グラフコンポーネントの生成
+   * @see https://recharts.org/en-US/examples/LineChartHasMultiSeries
+   */
   const totalPopulationLineChart = (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
@@ -132,7 +137,7 @@ const PopulationPage: NextPage = () => {
           />
         ))}
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="year" allowDuplicatedCategory={false} />
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
@@ -158,7 +163,7 @@ const PopulationPage: NextPage = () => {
           />
         ))}
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="year" allowDuplicatedCategory={false} />
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
@@ -184,7 +189,7 @@ const PopulationPage: NextPage = () => {
           />
         ))}
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="year" allowDuplicatedCategory={false} />
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
@@ -210,7 +215,7 @@ const PopulationPage: NextPage = () => {
           />
         ))}
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="year" allowDuplicatedCategory={false} />
         <YAxis dataKey="value" />
         <Tooltip />
         <Legend />
