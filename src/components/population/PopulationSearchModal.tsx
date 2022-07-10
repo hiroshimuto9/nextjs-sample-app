@@ -64,9 +64,10 @@ const PopulationSearchModal: NextPage<Props> = ({
     return checkedPrefectureList.includes(prefecture);
   };
 
-  /** 検索処理を実行 */
+  /** 検索処理を実行しモーダルを閉じる */
   const onSearch = async () => {
     handleSearch(checkedPrefectureList);
+    closeModal();
   };
 
   return (
