@@ -13,6 +13,7 @@ import {
 import style from "./Population.module.css";
 import { Layout } from "@/components/layouts/Layout";
 import PopulationSearchModal from "@/components/population/PopulationSearchModal";
+import useGenerateChart from "@/hooks/useGenerateChart";
 
 // TODO api/prefectures/index.tsにも同じ型定義があるためリファクタ
 type Prefecture = {
@@ -55,6 +56,7 @@ const PopulationPage: NextPage = () => {
     ChartData[]
   >([]);
   const [agedPopulationList, setAgedPopulation] = useState<ChartData[]>([]);
+  const { generateLineChart } = useGenerateChart();
 
   const openModal = () => {
     setModalStatus(true);
@@ -115,113 +117,25 @@ const PopulationPage: NextPage = () => {
     setAgedPopulation(allAgedPopulationList);
   };
 
-  /**
-   * グラフコンポーネントの生成
-   * @see https://recharts.org/en-US/examples/LineChartHasMultiSeries
-   */
-  const totalPopulationLineChart = (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={600}
-        height={300}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        {totalPopulationList.map((totalPopulation) => (
-          <Line
-            dataKey="value"
-            data={totalPopulation.data}
-            name={totalPopulation.prefectureName}
-            key={totalPopulation.prefectureName}
-            type="monotone"
-            stroke="#8884d8"
-          />
-        ))}
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" allowDuplicatedCategory={false} />
-        <YAxis dataKey="value" />
-        <Tooltip />
-        <Legend />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  // 総人口グラフ
+  const totalPopulationLineChart = () => {
+    return generateLineChart(totalPopulationList);
+  };
 
-  const youngPopulationLineChart = (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={600}
-        height={300}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        {youngPopulationList.map((youngPopulation) => (
-          <Line
-            dataKey="value"
-            data={youngPopulation.data}
-            name={youngPopulation.prefectureName}
-            key={youngPopulation.prefectureName}
-            type="monotone"
-            stroke="#8884d8"
-          />
-        ))}
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" allowDuplicatedCategory={false} />
-        <YAxis dataKey="value" />
-        <Tooltip />
-        <Legend />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  // 年少人口グラフ
+  const youngPopulationLineChart = () => {
+    return generateLineChart(youngPopulationList);
+  };
 
-  const workingAgePopulationLineChart = (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={600}
-        height={300}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        {workingAgePopulationList.map((workingAgePopulation) => (
-          <Line
-            dataKey="value"
-            data={workingAgePopulation.data}
-            name={workingAgePopulation.prefectureName}
-            key={workingAgePopulation.prefectureName}
-            type="monotone"
-            stroke="#8884d8"
-          />
-        ))}
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" allowDuplicatedCategory={false} />
-        <YAxis dataKey="value" />
-        <Tooltip />
-        <Legend />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  // 生産年齢人口グラフ
+  const workingAgePopulationLineChart = () => {
+    return generateLineChart(workingAgePopulationList);
+  };
 
-  const agedPopulationLineChart = (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={600}
-        height={300}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        {agedPopulationList.map((agedPopulation) => (
-          <Line
-            dataKey="value"
-            data={agedPopulation.data}
-            name={agedPopulation.prefectureName}
-            key={agedPopulation.prefectureName}
-            type="monotone"
-            stroke="#8884d8"
-          />
-        ))}
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="year" allowDuplicatedCategory={false} />
-        <YAxis dataKey="value" />
-        <Tooltip />
-        <Legend />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  // 老年人口グラフ
+  const agedPopulationLineChart = () => {
+    return generateLineChart(agedPopulationList);
+  };
 
   return (
     <div>
@@ -243,25 +157,25 @@ const PopulationPage: NextPage = () => {
             <div className={style.subCategoryContentWrap}>
               <h2 className={style.subCategoryTitle}>総人口</h2>
               <div className={style.subCategoryContent}>
-                {totalPopulationLineChart}
+                {totalPopulationLineChart()}
               </div>
             </div>
             <div className={style.subCategoryContentWrap}>
               <h2 className={style.subCategoryTitle}>年少人口</h2>
               <div className={style.subCategoryContent}>
-                {youngPopulationLineChart}
+                {youngPopulationLineChart()}
               </div>
             </div>
             <div className={style.subCategoryContentWrap}>
               <h2 className={style.subCategoryTitle}>生産年齢人口</h2>
               <div className={style.subCategoryContent}>
-                {workingAgePopulationLineChart}
+                {workingAgePopulationLineChart()}
               </div>
             </div>
             <div className={style.subCategoryContentWrap}>
               <h2 className={style.subCategoryTitle}>老年人口</h2>
               <div className={style.subCategoryContent}>
-                {agedPopulationLineChart}
+                {agedPopulationLineChart()}
               </div>
             </div>
           </div>
