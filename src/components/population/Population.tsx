@@ -111,7 +111,6 @@ const PopulationPage: NextPage = () => {
       }
     }
     setTotalPopulation(allTotalPopulationList);
-    console.log("totalPopulationList", totalPopulationList);
     setYoungPopulation(allYoungPopulationList);
     setWorkingAgePopulation(allWorkingAgePopulationList);
     setAgedPopulation(allAgedPopulationList);
